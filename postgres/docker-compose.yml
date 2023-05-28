@@ -8,9 +8,9 @@ services:
     ports:
       - 0.0.0.0:5432:5432
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
     volumes:
       - $PWD/data:/var/lib/postgresql/data
     healthcheck:
