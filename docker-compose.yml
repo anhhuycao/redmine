@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  redmine:
+    image: redmine:5.0.5
+    container_name: redmine
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - 0.0.0.0:3000:3000
+    environment:
+      REDMINE_DB_MYSQL: mysql
+      REDMINE_DB_PASSWORD: example
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+
+  mysql:
+    image: mysql:8.0.33
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: redmine
