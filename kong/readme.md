@@ -3,5 +3,4 @@ curl -i -X POST http://localhost:8001/services/demo-service/routes --data 'paths
 
 docker run -d --name prometheus --network=gateway_kong-net -p 9090:9090 -v ./prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus:latest
 
-
 curl -X POST http://localhost:8001/services/demo-service/plugins --data "name=prometheus"
