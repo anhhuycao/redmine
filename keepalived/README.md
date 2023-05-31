@@ -23,3 +23,10 @@ docker run -d --name apache2 --restart=unless-stopped -p 80:80 ubuntu/apache2:la
 docker exec nginx sh -c "echo 'server.url=$server_url' >> /home/app/.app/app.config"
 
 docker run -d --name test -p 80:80 -v /var/run/docker.sock:/var/run/docker.sock test
+
+docker run -d --name keepalived --restart=always \
+ --cap-add=NET_ADMIN --cap-add=NET_BROADCAST --cap-add=NET_RAW --net=host \
+ -e KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.1.10', '192.168.1.11']" \
+ -e KEEPALIVED_VIRTUAL_IPS=192.168.1.5 \
+ -e KEEPALIVED_PRIORITY=100 \
+ keepalived:2.2.8

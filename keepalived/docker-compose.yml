@@ -2,10 +2,7 @@ version: '3.8'
 
 services:
   keepalived1:
-    image: keepalived:dev
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: keepalived:2.2.8
     container_name: keepalived1
     restart: unless-stopped
     volumes:
@@ -23,10 +20,7 @@ services:
         ipv4_address: 192.168.0.21
 
   keepalived2:
-    image: keepalived:dev
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: keepalived:2.2.8
     container_name: keepalived2
     restart: unless-stopped
     volumes:
@@ -47,8 +41,6 @@ services:
     image: nginx:1.25.0-alpine3.17
     container_name: nginx1
     restart: unless-stopped
-    # ports:
-    #   - 81:80
     volumes:
       - $PWD/index1.html:/usr/share/nginx/html/index.html
     networks:
@@ -59,8 +51,6 @@ services:
     image: nginx:1.25.0-alpine3.17
     container_name: nginx2
     restart: unless-stopped
-    # ports:
-    #   - 82:80
     volumes:
       - $PWD/index2.html:/usr/share/nginx/html/index.html
     networks:
