@@ -21,3 +21,5 @@ docker run -d --name apache2 --restart=unless-stopped -p 80:80 ubuntu/apache2:la
 -v $PWD/index.html:/usr/share/nginx/html/index.html
 
 docker exec nginx sh -c "echo 'server.url=$server_url' >> /home/app/.app/app.config"
+
+docker run -d --name test -p 80:80 -v /var/run/docker.sock:/var/run/docker.sock test
