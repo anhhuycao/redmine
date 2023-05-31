@@ -6,7 +6,7 @@ services:
     container_name: keepalived1
     restart: unless-stopped
     environment:
-      - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.0.11', '192.168.0.12']"
+      - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.0.21', '192.168.0.22']"
       - KEEPALIVED_VIRTUAL_IPS=192.168.0.20
       - KEEPALIVED_PRIORITY=1
     cap_add:
@@ -22,7 +22,7 @@ services:
     container_name: keepalived2
     restart: unless-stopped
     environment:
-      - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.0.11', '192.168.0.12']"
+      - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.0.21', '192.168.0.22']"
       - KEEPALIVED_VIRTUAL_IPS=192.168.0.20
       - KEEPALIVED_PRIORITY=2
     cap_add:
@@ -33,8 +33,27 @@ services:
       nginx-network:
         ipv4_address: 192.168.0.22
 
+  # keepalived2:
+  #   image: keepalived:dev
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: keepalived2
+  #   restart: unless-stopped
+  #   environment:
+  #     - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.0.21', '192.168.0.22']"
+  #     - KEEPALIVED_VIRTUAL_IPS=192.168.0.20
+  #     - KEEPALIVED_PRIORITY=2
+  #   cap_add:
+  #     - NET_ADMIN
+  #     - NET_BROADCAST
+  #     - NET_RAW
+  #   networks:
+  #     nginx-network:
+  #       ipv4_address: 192.168.0.22
+
   nginx1:
-    image: nginx:latest
+    image: nginx:1.25.0-alpine3.17
     container_name: nginx1
     restart: unless-stopped
     # ports:
@@ -46,7 +65,7 @@ services:
         ipv4_address: 192.168.0.11
 
   nginx2:
-    image: nginx:latest
+    image: nginx:1.25.0-alpine3.17
     container_name: nginx2
     restart: unless-stopped
     # ports:
@@ -56,6 +75,32 @@ services:
     networks:
       nginx-network:
         ipv4_address: 192.168.0.12
+
+  haproxy1:
+    image: haproxy:2.7.8-alpine3.17
+    container_name: haproxy1
+    restart: unless-stopped
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    networks:
+      nginx-network:
+        ipv4_address: 192.168.0.31
+    depends_on:
+      - nginx1
+      - nginx2
+
+  haproxy2:
+    image: haproxy:2.7.8-alpine3.17
+    container_name: haproxy2
+    restart: unless-stopped
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    networks:
+      nginx-network:
+        ipv4_address: 192.168.0.32
+    depends_on:
+      - nginx1
+      - nginx2
 
 networks:
   nginx-network:
