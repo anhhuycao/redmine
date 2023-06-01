@@ -39,26 +39,6 @@ services:
       nginx-network:
         ipv4_address: 192.168.0.22
 
-  haproxy1:
-    image: haproxy:2.7.8-alpine3.17
-    container_name: haproxy1
-    restart: unless-stopped
-    volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    networks:
-      nginx-network:
-        ipv4_address: 192.168.0.31
-
-  haproxy2:
-    image: haproxy:2.7.8-alpine3.17
-    container_name: haproxy2
-    restart: unless-stopped
-    volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    networks:
-      nginx-network:
-        ipv4_address: 192.168.0.32
-
 networks:
   nginx-network:
     name: nginx-network
