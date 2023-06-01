@@ -13,6 +13,8 @@ RUN apk update \
     && rm -f keepalived.tar.gz \
     && rm -rf /container/keepalived-sources \
     && apk --no-cache del autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev
+RUN apk update \
+    && apk add haproxy
 
 # Add service directory to /container/service
 ADD service /container/service

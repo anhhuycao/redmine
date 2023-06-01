@@ -5,6 +5,9 @@ services:
     image: keepalived:2.2.8
     container_name: keepalived1
     restart: unless-stopped
+    volumes:
+      - ./keepalived1.conf:/usr/local/etc/keepalived/keepalived.conf
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     environment:
       - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.0.21', '192.168.0.22']"
       - KEEPALIVED_VIRTUAL_IPS=192.168.0.20
@@ -21,6 +24,9 @@ services:
     image: keepalived:2.2.8
     container_name: keepalived2
     restart: unless-stopped
+    volumes:
+      - ./keepalived2.conf:/usr/local/etc/keepalived/keepalived.conf
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     environment:
       - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.0.21', '192.168.0.22']"
       - KEEPALIVED_VIRTUAL_IPS=192.168.0.20

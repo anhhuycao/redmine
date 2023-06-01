@@ -11,5 +11,5 @@ do
   sleep 0.1
 done
 echo "ok"
-
+/usr/sbin/haproxy -f /usr/local/etc/haproxy/haproxy.cfg &
 exec /usr/local/sbin/keepalived -f /usr/local/etc/keepalived/keepalived.conf --dont-fork --log-console ${KEEPALIVED_COMMAND_LINE_ARGUMENTS}
