@@ -6,23 +6,36 @@ services:
     container_name: keepalived1
     restart: unless-stopped
     volumes:
-      - ./keepalived1.conf:/usr/local/etc/keepalived/keepalived.conf
+      - ./keepalived1.conf.bridge:/usr/local/etc/keepalived/keepalived.conf
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     cap_add:
       - NET_ADMIN
       - NET_BROADCAST
       - NET_RAW
-    network_mode: host
+    networks:
+      nginx-network:
+        ipv4_address: 192.168.0.21
 
   keepalived2:
     image: keepalived:2.2.8
     container_name: keepalived2
     restart: unless-stopped
     volumes:
-      - ./keepalived2.conf:/usr/local/etc/keepalived/keepalived.conf
+      - ./keepalived2.conf.bridge:/usr/local/etc/keepalived/keepalived.conf
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     cap_add:
       - NET_ADMIN
       - NET_BROADCAST
       - NET_RAW
-    network_mode: host
+    networks:
+      nginx-network:
+        ipv4_address: 192.168.0.22
+
+networks:
+  nginx-network:
+    name: nginx-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16
+          gateway: 192.168.0.1
