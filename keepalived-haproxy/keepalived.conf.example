@@ -1,0 +1,20 @@
+global_defs {
+  default_interface eth0
+}
+
+vrrp_instance VI_1 {
+  interface eth0
+  state BACKUP
+  virtual_router_id 51
+  priority 99
+  nopreempt
+
+  virtual_ipaddress {
+    192.168.0.20
+  }
+
+  authentication {
+    auth_type PASS
+    auth_pass d0cker
+  }
+}
