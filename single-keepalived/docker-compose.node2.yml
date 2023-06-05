@@ -14,7 +14,6 @@ services:
       - NET_RAW
     network_mode: host
     depends_on:
-      - nginx
       - apache2
 
   apache2:

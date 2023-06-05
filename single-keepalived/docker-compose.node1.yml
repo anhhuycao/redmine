@@ -15,7 +15,6 @@ services:
     network_mode: host
     depends_on:
       - nginx
-      - apache2
 
   nginx:
     image: nginx:latest
