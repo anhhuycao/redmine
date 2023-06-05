@@ -14,11 +14,11 @@ services:
       - NET_RAW
     network_mode: host
     depends_on:
-      - apache2
+      - tomcat
 
-  apache2:
-    image: ubuntu/apache2:latest
-    container_name: apache2
+  tomcat:
+    image: tomcat:9.0
+    container_name: tomcat
     restart: unless-stopped
     ports:
-      - 0.0.0.0:8080:80
+      - 0.0.0.0:8080:8080
