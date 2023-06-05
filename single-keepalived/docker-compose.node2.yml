@@ -13,12 +13,17 @@ services:
       - NET_BROADCAST
       - NET_RAW
     network_mode: host
-    depends_on:
-      - tomcat
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:8080:80
 
   tomcat:
     image: tomcat:9.0
     container_name: tomcat
     restart: unless-stopped
     ports:
-      - 0.0.0.0:8080:8080
+      - 0.0.0.0:8081:8080
