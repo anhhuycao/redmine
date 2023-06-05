@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  keepalived:
+    image: keepalived:2.2.8
+    container_name: keepalived
+    restart: unless-stopped
+    volumes:
+      - ./keepalived2.conf:/usr/local/etc/keepalived/keepalived.conf
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    cap_add:
+      - NET_ADMIN
+      - NET_BROADCAST
+      - NET_RAW
+    network_mode: host
+    depends_on:
+      - nginx
+      - apache2
+
+  apache2:
+    image: ubuntu/apache2:latest
+    container_name: apache2
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:8080:80
