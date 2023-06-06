@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./keepalived1.conf.bridge:/usr/local/etc/keepalived/keepalived.conf
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./haproxy.cfg.bridge:/usr/local/etc/haproxy/haproxy.cfg
     cap_add:
       - NET_ADMIN
       - NET_BROADCAST
@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./keepalived2.conf.bridge:/usr/local/etc/keepalived/keepalived.conf
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./haproxy.cfg.bridge:/usr/local/etc/haproxy/haproxy.cfg
     cap_add:
       - NET_ADMIN
       - NET_BROADCAST
@@ -30,6 +30,20 @@ services:
     networks:
       nginx-network:
         ipv4_address: 192.168.0.22
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:8081:80
+
+  tomcat:
+    image: tomcat:9.0
+    container_name: tomcat
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:8082:8080
 
 networks:
   nginx-network:

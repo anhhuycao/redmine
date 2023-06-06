@@ -6,7 +6,7 @@ vrrp_instance VI_1 {
   interface eth0
   state BACKUP
   virtual_router_id 51
-  priority 100
+  priority 10
   nopreempt
 
   virtual_ipaddress {
@@ -17,6 +17,4 @@ vrrp_instance VI_1 {
     auth_type PASS
     auth_pass d0cker
   }
-
-  notify "/container/service/keepalived/assets/notify.sh"
 }
