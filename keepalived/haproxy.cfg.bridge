@@ -14,11 +14,11 @@ frontend stats
   stats uri /
   stats refresh 1s
 
-frontend kong_frontend
+frontend frontend
   bind *:80
-  default_backend   kong_backend
+  default_backend   backend
   
-backend kong_backend                                                                                                                     
+backend backend                                                                                                                     
   balance  roundrobin
-  server   kong1 127.0.0.1:8081 check
-  server   kong2 127.0.0.1:8082 check
+  server   nginx 10.10.69.11:8081 check
+  server   tomcat 10.10.69.11:8082 check
