@@ -79,6 +79,8 @@ Vagrant.configure("2") do |config|
     sudo apt update
     apt-cache policy docker-ce
     sudo apt install docker-ce -y
+    sudo groupadd docker
     sudo usermod -aG docker ${USER}
+    sudo reboot
   SHELL
 end
