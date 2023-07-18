@@ -2,7 +2,9 @@
 
 sudo yum check-update
 sudo yum -y update
-sudo yum install -y htop
+sudo yum -y install htop
+sudo yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm
+sudo yum -y install git
 
 # sudo tee /etc/yum.repos.d/kubernetes.repo<<EOF
 # [kubernetes]
