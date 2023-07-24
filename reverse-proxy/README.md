@@ -1,19 +1,18 @@
-## Setup load balancing with nginx
+## Reverse proxy with nginx
 
-- Nginx default port `80`
-- Kong1 gateway port `8000`, api port `8080`
-- Kong2 gateway port `8001`, api port `8081`
+- Nginx run port `80`, `443`
 
-## Command add service
+## Install dependenies
 
-- Add service
-
-```
-curl -i -s -X POST http://localhost:8001/services --data name=demo-service --data url='http://103.20.144.134:5000'
-```
-
-- Add route
+1. Install Certbot
+2. Obtain SSL Certificate
 
 ```
-curl -i -X POST http://localhost:8001/services/demo-service/routes --data 'paths[]=/' --data name=demo-route
+certbot certonly --standalone -d example.com
+```
+
+3. Run reverse proxy
+
+```
+make up
 ```
