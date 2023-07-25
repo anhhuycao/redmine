@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  openldap:
+    image: bitnami/openldap:2.6.5
+    container_name: openldap
+    ports:
+      - 103.20.144.134:1389:1389
+    environment:
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=adminpassword
+      - LDAP_USERS=user01,user02
+      - LDAP_PASSWORDS=password1,password2
+      - LDAP_ROOT=dc=metaserv,dc=vn
+    volumes:
+      - ./openldap:/bitnami/openldap
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin
+    ports:
+      - 103.20.144.134:8080:80
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap://103.20.144.134:1389
+      - PHPLDAPADMIN_HTTPS=false
+    depends_on:
+      - openldap
