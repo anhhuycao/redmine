@@ -4,6 +4,7 @@ services:
   openldap:
     image: bitnami/openldap:2.6.5
     container_name: openldap
+    restart: unless-stopped
     ports:
       - 103.20.144.134:1389:1389
     environment:
@@ -18,6 +19,7 @@ services:
   phpldapadmin:
     image: osixia/phpldapadmin:latest
     container_name: phpldapadmin
+    restart: unless-stopped
     ports:
       - 103.20.144.134:8080:80
     environment:
