@@ -13,6 +13,7 @@ services:
       - LDAP_USERS=user01,user02
       - LDAP_PASSWORDS=password1,password2
       - LDAP_ROOT=dc=metaserv,dc=vn
+      - LDAP_ALLOW_ANON_BINDING=no
     volumes:
       - ./openldap:/bitnami/openldap
 
