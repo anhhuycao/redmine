@@ -1,4 +1,4 @@
-COMPOSE_FILE = docker-compose.yml
+COMPOSE_FILE = docker-compose.46.yml
 
 ps:
 	docker compose -f ${COMPOSE_FILE} ps

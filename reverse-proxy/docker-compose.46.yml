@@ -6,8 +6,8 @@ services:
     container_name: reverse-proxy
     restart: unless-stopped
     ports:
-      - 0.0.0.0:80:80
-      - 0.0.0.0:443:443
+      - 103.20.144.46:80:80
+      - 103.20.144.46:443:443
     volumes:
       - /etc/letsencrypt/live/gamecms.metaserv.vn/fullchain.pem:/etc/nginx/ssl/live/gamecms.metaserv.vn/fullchain.pem
       - /etc/letsencrypt/live/gamecms.metaserv.vn/privkey.pem:/etc/nginx/ssl/live/gamecms.metaserv.vn/privkey.pem
@@ -17,5 +17,5 @@ services:
       - /etc/letsencrypt/live/gameportal.metaserv.vn/privkey.pem:/etc/nginx/ssl/live/gameportal.metaserv.vn/privkey.pem
       - /etc/letsencrypt/live/apigateway.metaserv.vn/fullchain.pem:/etc/nginx/ssl/live/apigateway.metaserv.vn/fullchain.pem
       - /etc/letsencrypt/live/apigateway.metaserv.vn/privkey.pem:/etc/nginx/ssl/live/apigateway.metaserv.vn/privkey.pem
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.46.conf:/etc/nginx/conf.d/default.conf
       - ./logs/nginx:/var/log/nginx
