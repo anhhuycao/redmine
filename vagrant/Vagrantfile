@@ -1,38 +1,12 @@
 Vagrant.configure("2") do |config|
   config.vm.define "vps1" do |vps1|
-    vps1.vm.box = "bento/ubuntu-22.04"
-	  vps1.vm.network "private_network", ip: "192.168.56.11"
-    vps1.vm.host_name = "k8smaster.example.net"
+    vps1.vm.box = "gusztavvargadr/windows-10"
+	  vps1.vm.network "private_network", ip: "192.168.56.2"
 	  vps1.vm.provider "virtualbox" do |vb|
       vb.name = "vps1"
-      vb.memory = "3072"
+      vb.memory = "4096"
 	    vb.cpus = 4
+      vb.gui = true
     end
   end
-
-  config.vm.define "vps2" do |vps2|
-    vps2.vm.box = "bento/ubuntu-22.04"
-	  vps2.vm.network "private_network", ip: "192.168.56.12"
-    vps2.vm.host_name = "k8sworker1.example.net"
-	  vps2.vm.provider "virtualbox" do |vb|
-      vb.name = "vps2"
-      vb.memory = "3072"
-	    vb.cpus = 4
-    end
-  end
-
-  config.vm.define "vps3" do |vps3|
-    vps3.vm.box = "bento/ubuntu-22.04"
-	  vps3.vm.network "private_network", ip: "192.168.56.13"
-    vps3.vm.host_name = "k8sworker2.example.net"
-	  vps3.vm.provider "virtualbox" do |vb|
-      vb.name = "vps3"
-      vb.memory = "3072"
-	    vb.cpus = 4
-    end
-  end
-
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo apt update
-  SHELL
 end
